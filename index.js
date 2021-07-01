@@ -425,6 +425,9 @@ function process_commands_query(query, mapKey, userid) {
                 out = _CMD_QUEUE;
                 break;
             case 'hello':
+                out = _CMD_STOP;'
+                break;
+            case 'stop':
                 out = 'hello back =)'
                 break;
             case 'favorites':
@@ -551,7 +554,13 @@ async function music_message(message, mapKey) {
             }, (msg)=>{
                 if (msg && msg.length) message.channel.send(msg);
             })
+        } else if (args[0] == _CMD_STOP) {
 
+            pauseMusic(mapKey, ()=>{
+                message.react(EMOJI_GREEN_CIRCLE)
+            }, (msg)=>{
+                if (msg && msg.length) message.channel.send(msg);
+            })
         } else if (args[0] == _CMD_SHUFFLE) {
 
             shuffleMusic(mapKey, ()=>{
