@@ -424,10 +424,10 @@ function process_commands_query(query, mapKey, userid) {
             case 'list':
                 out = _CMD_QUEUE;
                 break;
-            case 'hello':
+            case 'stop':
                 out = _CMD_STOP;'
                 break;
-            case 'stop':
+            case 'hello':
                 out = 'hello back =)'
                 break;
             case 'favorites':
