@@ -550,8 +550,18 @@ async function music_message(message, mapKey) {
 
         } else if (args[0] == _CMD_RESUME) {
 
-            resumeMusic(mapKey);
-            pauseMusic(mapKey);
+            resumeMusic(mapKey, ()=>{
+                message.react(EMOJI_GREEN_CIRCLE)
+            }, (msg)=>{
+                if (msg && msg.length) message.channel.send(msg);
+            })
+            
+            pauseMusic(mapKey, ()=>{
+                message.react(EMOJI_GREEN_CIRCLE)
+            }, (msg)=>{
+                if (msg && msg.length) message.channel.send(msg);
+            })
+            
             resumeMusic(mapKey, ()=>{
                 message.react(EMOJI_GREEN_CIRCLE)
             }, (msg)=>{
