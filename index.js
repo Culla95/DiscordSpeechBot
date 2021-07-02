@@ -406,6 +406,9 @@ function process_commands_query(query, mapKey, userid) {
             case 'salta':
                 out = _CMD_SKIP;
                 break;
+            case 'skype':
+                out = _CMD_SKIP;
+                break;
             case 'mezcla':
                 out = _CMD_SHUFFLE;
                 break;
