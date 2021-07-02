@@ -285,15 +285,15 @@ function getHelpString() {
     let out = '**VOICE COMMANDS:**\n'
         out += '```'
         out += 'music help\n'
-        out += 'music play [random, favorites, <genre> or query]\n'
-        out += 'music skip\n'
-        out += 'music pause/resume\n'
-        out += 'music shuffle\n'
+        out += 'music play\pon [random, favorites, <genre> or query]\n'
+        out += 'music salta\n'
+        out += 'music stop/retoma\n'
+        out += 'music mezcla\n'
         out += 'music genres\n'
         out += 'music set favorite\n'
         out += 'music favorites\n'
-        out += 'music list\n'
-        out += 'music clear list\n';
+        out += 'music lista\n'
+        out += 'music limpia\n';
         out += '```'
 
         out += '**TEXT COMMANDS:**\n'
@@ -418,6 +418,9 @@ function process_commands_query(query, mapKey, userid) {
             case 'retoma':
                 out = _CMD_RESUME;
                 break;
+            case 'resume':
+                out = _CMD_RESUME;
+                break;
             case 'limpia':
                 if (args == 'list')
                     out = _CMD_CLEAR;
@@ -443,6 +446,7 @@ function process_commands_query(query, mapKey, userid) {
                 }
                 break;
             case 'pon':
+            case 'play':
             case 'player':
                 switch(args) {
                     case 'random':
