@@ -425,7 +425,9 @@ function process_commands_query(query, mapKey, userid) {
                 out = _CMD_RESUME;
                 break;
             case 'limpia':
-                if (args == 'list')
+                    out = _CMD_CLEAR;
+                break;
+            case 'clear':
                     out = _CMD_CLEAR;
                 break;
             case 'lista':
