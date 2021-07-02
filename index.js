@@ -403,26 +403,26 @@ function process_commands_query(query, mapKey, userid) {
             case 'help':
                 out = _CMD_HELP;
                 break;
-            case 'skip':
+            case 'salta':
                 out = _CMD_SKIP;
                 break;
-            case 'shuffle':
+            case 'mezcla':
                 out = _CMD_SHUFFLE;
                 break;
             case 'genres':
                 out = _CMD_GENRES;
                 break;
-            case 'pause':
+            case 'para':
                 out = _CMD_PAUSE;
                 break;
-            case 'resume':
+            case 'retoma':
                 out = _CMD_RESUME;
                 break;
-            case 'clear':
+            case 'limpia':
                 if (args == 'list')
                     out = _CMD_CLEAR;
                 break;
-            case 'list':
+            case 'lista':
                 out = _CMD_QUEUE;
                 break;
             case 'stop':
@@ -442,7 +442,7 @@ function process_commands_query(query, mapKey, userid) {
                         break;
                 }
                 break;
-            case 'play':
+            case 'pon':
             case 'player':
                 switch(args) {
                     case 'random':
