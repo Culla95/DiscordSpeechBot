@@ -563,7 +563,7 @@ async function music_message(message, mapKey) {
                 if (msg && msg.length) message.channel.send(msg);
             })
         } else if (args[0] == _CMD_EURO) {
-            
+           
             try {
                     const arr = await spotify_tracks_from_playlist('https://open.spotify.com/playlist/16cyVWFIWmV7HhEOPsjyo8');
                     console.log(arr.length + ' spotify items from playlist')
@@ -574,15 +574,57 @@ async function music_message(message, mapKey) {
                     console.log('music_message 464:' + e)
                     message.channel.send('Failed processing spotify link: ' + qry);
                 }
-        } else if (args[0] == _CMD_NEXT) {
+        } else if (args[0] == _CMD_NEXT && args.length) {
             const qry = args.slice(1).join(' ');
-            try {
-                 addToFisrtPlace(qry, mapKey);
-                 message.react(EMOJI_GREEN_CIRCLE)
-                }catch (e) {
+            if (qry == 'favorites') {
+                // play guild's favorites
+                if (mapKey in GUILD_FAVORITES) {
+                    let arr = GUILD_FAVORITES[mapKey];
+                    if (arr.length) {
+                        for (let item of arr)     {
+                            addToFirstPlace(item, mapKey)
+                        }
+                        message.react(EMOJI_GREEN_CIRCLE)
+                    } else {
+                        message.channel.send('No favorites yet.')
+                    }
+                } else {
+                    message.channel.send('No favorites yet.')
+                }
+            }
+            else if (isSpotify(qry)) {
+                try {
+                    const arr = await spotify_tracks_from_playlist(qry);
+                    console.log(arr.length + ' spotify items from playlist')
+                    for (let item of arr)
+                        addToFirstPlace(item, mapKey);
+                    message.react(EMOJI_GREEN_CIRCLE)
+                } catch(e) {
+                    console.log('music_message 464:' + e)
+                    message.channel.send('Failed processing spotify link: ' + qry);
+                }
+            } else {
+
+                if (isYoutube(qry) && isYoutubePlaylist(qry)) {
+                    try {
+                        const arr = await youtube_tracks_from_playlist(qry);
+                        for (let item of arr)
+                            addToFirstPlace(item, mapKey)
+                        message.react(EMOJI_GREEN_CIRCLE)
+                    } catch (e) {
+                        console.log('music_message 476:' + e)
+                        message.channel.send('Failed to process playlist: ' + qry);
+                    }
+                } else {
+                    try {
+                        addToFirstPlace(qry, mapKey);
+                        message.react(EMOJI_GREEN_CIRCLE)
+                    } catch (e) {
                         console.log('music_message 484:' + e)
                         message.channel.send('Failed to find video for (try again): ' + qry);
+                    }
                 }
+            }
             
         } else if (args[0] == _CMD_PAUSE) {
 
@@ -887,7 +929,7 @@ function addToQueue(title, mapKey) {
         val.musicQueue.push(title);
     }
 }
-function addToFisrtPlace(title, mapKey) {
+function addToFirstPlace(title, mapKey) {
     let val = guildMap.get(mapKey);
     if (val.currentPlayingTitle == title || val.currentPlayingQuery == title || val.musicQueue.includes(title)) {
         console.log('duplicate prevented: ' + title)
