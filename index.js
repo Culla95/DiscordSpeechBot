@@ -404,7 +404,7 @@ function process_commands_query(query, mapKey, userid) {
             case 'help':
                 out = _CMD_HELP;
                 break;
-            case 'eurovision':
+            case 'eurovisión':
                 out = _CMD_EUROVISION;
                 break;
             case 'salta':
