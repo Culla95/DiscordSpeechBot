@@ -180,6 +180,7 @@ const _CMD_LEAVE       = PREFIX + 'leave';
 const _CMD_PLAY        = PREFIX + 'play';
 const _CMD_PAUSE       = PREFIX + 'pause';
 const _CMD_STOP       = PREFIX + 'stop';
+const _CMD_EUROVISION       = PREFIX + 'eurovision';
 const _CMD_RESUME      = PREFIX + 'resume';
 const _CMD_SHUFFLE     = PREFIX + 'shuffle';
 const _CMD_FAVORITE    = PREFIX + 'favorite';
@@ -194,7 +195,7 @@ const _CMD_QUEUE       = PREFIX + 'list';
 const _CMD_DEBUG       = PREFIX + 'debug';
 const _CMD_TEST        = PREFIX + 'hello';
 const _CMD_LANG        = PREFIX + 'lang';
-const PLAY_CMDS = [_CMD_PLAY, _CMD_PAUSE, _CMD_STOP, _CMD_RESUME, _CMD_SHUFFLE, _CMD_SKIP, _CMD_GENRE, _CMD_GENRES, _CMD_RANDOM, _CMD_CLEAR, _CMD_QUEUE, _CMD_FAVORITE, _CMD_FAVORITES, _CMD_UNFAVORITE];
+const PLAY_CMDS = [_CMD_PLAY, _CMD_PAUSE, _CMD_STOP, _CMD_EUROVISION, _CMD_RESUME, _CMD_SHUFFLE, _CMD_SKIP, _CMD_GENRE, _CMD_GENRES, _CMD_RANDOM, _CMD_CLEAR, _CMD_QUEUE, _CMD_FAVORITE, _CMD_FAVORITES, _CMD_UNFAVORITE];
 
 const EMOJI_GREEN_CIRCLE = '🟢'
 const EMOJI_RED_CIRCLE = '🔴'
@@ -285,15 +286,15 @@ function getHelpString() {
     let out = '**VOICE COMMANDS:**\n'
         out += '```'
         out += 'music help\n'
-        out += 'music play\pon [random, favorites, <genre> or query]\n'
-        out += 'music salta\n'
+        out += 'music play/pon [random, favorites, <genre> or query]\n'
+        out += 'music salta/skip\n'
         out += 'music stop/retoma\n'
-        out += 'music mezcla\n'
+        out += 'music mezcla/shuffle\n'
         out += 'music genres\n'
         out += 'music set favorite\n'
         out += 'music favorites\n'
         out += 'music lista\n'
-        out += 'music limpia\n';
+        out += 'music limpia/clear\n';
         out += '```'
 
         out += '**TEXT COMMANDS:**\n'
@@ -403,6 +404,9 @@ function process_commands_query(query, mapKey, userid) {
             case 'help':
                 out = _CMD_HELP;
                 break;
+            case 'eurovision':
+                out = _CMD_EUROVISION;
+                break;
             case 'salta':
                 out = _CMD_SKIP;
                 break;
@@ -410,6 +414,9 @@ function process_commands_query(query, mapKey, userid) {
                 out = _CMD_SKIP;
                 break;
             case 'mezcla':
+                out = _CMD_SHUFFLE;
+                break;
+            case 'shuffle':
                 out = _CMD_SHUFFLE;
                 break;
             case 'genres':
@@ -548,6 +555,18 @@ async function music_message(message, mapKey) {
             }, (msg)=>{
                 if (msg && msg.length) message.channel.send(msg);
             })
+        } else if (args[0] == _CMD_EUROVISION) {
+            
+            try {
+                    const arr = await spotify_tracks_from_playlist('https://open.spotify.com/playlist/16cyVWFIWmV7HhEOPsjyo8');
+                    console.log(arr.length + ' spotify items from playlist')
+                    for (let item of arr)
+                        addToQueue(item, mapKey);
+                    message.react(EMOJI_GREEN_CIRCLE)
+                } catch(e) {
+                    console.log('music_message 464:' + e)
+                    message.channel.send('Failed processing spotify link: ' + qry);
+                }
 
         } else if (args[0] == _CMD_PAUSE) {
 
