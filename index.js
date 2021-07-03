@@ -181,6 +181,7 @@ const _CMD_PLAY        = PREFIX + 'play';
 const _CMD_PAUSE       = PREFIX + 'pause';
 const _CMD_STOP       = PREFIX + 'stop';
 const _CMD_EURO       = PREFIX + 'euro';
+const _CMD_NEXT       = PREFIX + 'next';
 const _CMD_RESUME      = PREFIX + 'resume';
 const _CMD_SHUFFLE     = PREFIX + 'shuffle';
 const _CMD_FAVORITE    = PREFIX + 'favorite';
@@ -195,7 +196,7 @@ const _CMD_QUEUE       = PREFIX + 'list';
 const _CMD_DEBUG       = PREFIX + 'debug';
 const _CMD_TEST        = PREFIX + 'hello';
 const _CMD_LANG        = PREFIX + 'lang';
-const PLAY_CMDS = [_CMD_PLAY, _CMD_PAUSE, _CMD_STOP, _CMD_EURO, _CMD_RESUME, _CMD_SHUFFLE, _CMD_SKIP, _CMD_GENRE, _CMD_GENRES, _CMD_RANDOM, _CMD_CLEAR, _CMD_QUEUE, _CMD_FAVORITE, _CMD_FAVORITES, _CMD_UNFAVORITE];
+const PLAY_CMDS = [_CMD_PLAY, _CMD_PAUSE, _CMD_NEXT, _CMD_STOP, _CMD_EURO, _CMD_RESUME, _CMD_SHUFFLE, _CMD_SKIP, _CMD_GENRE, _CMD_GENRES, _CMD_RANDOM, _CMD_CLEAR, _CMD_QUEUE, _CMD_FAVORITE, _CMD_FAVORITES, _CMD_UNFAVORITE];
 
 const EMOJI_GREEN_CIRCLE = '🟢'
 const EMOJI_RED_CIRCLE = '🔴'
@@ -407,6 +408,12 @@ function process_commands_query(query, mapKey, userid) {
             case 'euro':
                 out = _CMD_EURO;
                 break;
+            case 'next':
+                out = _CMD_NEXT;
+                break;
+            case 'siguiente':
+                out = _CMD_NEXT;
+                break;
             case 'salta':
                 out = _CMD_SKIP;
                 break;
@@ -567,7 +574,16 @@ async function music_message(message, mapKey) {
                     console.log('music_message 464:' + e)
                     message.channel.send('Failed processing spotify link: ' + qry);
                 }
-
+        } else if (args[0] == _CMD_NEXT) {
+            const qry = args.slice(1).join(' ');
+            try {
+                 addToQueue(qry, mapKey);
+                 message.react(EMOJI_GREEN_CIRCLE)
+                }catch (e) {
+                        console.log('music_message 484:' + e)
+                        message.channel.send('Failed to find video for (try again): ' + qry);
+                }
+            
         } else if (args[0] == _CMD_PAUSE) {
 
             pauseMusic(mapKey, ()=>{
@@ -871,7 +887,14 @@ function addToQueue(title, mapKey) {
         val.musicQueue.push(title);
     }
 }
-
+function addToFisrtPlace(title, mapKey) {
+    let val = guildMap.get(mapKey);
+    if (val.currentPlayingTitle == title || val.currentPlayingQuery == title || val.musicQueue.includes(title)) {
+        console.log('duplicate prevented: ' + title)
+    } else {
+        val.musicQueue.unshift(title);
+    }
+}
 
 function skipMusic(mapKey, cbok, cberr) {
     let val = guildMap.get(mapKey);
