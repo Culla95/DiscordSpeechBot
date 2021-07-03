@@ -180,7 +180,7 @@ const _CMD_LEAVE       = PREFIX + 'leave';
 const _CMD_PLAY        = PREFIX + 'play';
 const _CMD_PAUSE       = PREFIX + 'pause';
 const _CMD_STOP       = PREFIX + 'stop';
-const _CMD_EUROVISION       = PREFIX + 'eurovisión';
+const _CMD_EURO       = PREFIX + 'euro';
 const _CMD_RESUME      = PREFIX + 'resume';
 const _CMD_SHUFFLE     = PREFIX + 'shuffle';
 const _CMD_FAVORITE    = PREFIX + 'favorite';
@@ -195,7 +195,7 @@ const _CMD_QUEUE       = PREFIX + 'list';
 const _CMD_DEBUG       = PREFIX + 'debug';
 const _CMD_TEST        = PREFIX + 'hello';
 const _CMD_LANG        = PREFIX + 'lang';
-const PLAY_CMDS = [_CMD_PLAY, _CMD_PAUSE, _CMD_STOP, _CMD_EUROVISION, _CMD_RESUME, _CMD_SHUFFLE, _CMD_SKIP, _CMD_GENRE, _CMD_GENRES, _CMD_RANDOM, _CMD_CLEAR, _CMD_QUEUE, _CMD_FAVORITE, _CMD_FAVORITES, _CMD_UNFAVORITE];
+const PLAY_CMDS = [_CMD_PLAY, _CMD_PAUSE, _CMD_STOP, _CMD_EURO, _CMD_RESUME, _CMD_SHUFFLE, _CMD_SKIP, _CMD_GENRE, _CMD_GENRES, _CMD_RANDOM, _CMD_CLEAR, _CMD_QUEUE, _CMD_FAVORITE, _CMD_FAVORITES, _CMD_UNFAVORITE];
 
 const EMOJI_GREEN_CIRCLE = '🟢'
 const EMOJI_RED_CIRCLE = '🔴'
@@ -404,8 +404,8 @@ function process_commands_query(query, mapKey, userid) {
             case 'help':
                 out = _CMD_HELP;
                 break;
-            case 'eurovisión':
-                out = _CMD_EUROVISION;
+            case 'euro':
+                out = _CMD_EURO;
                 break;
             case 'salta':
                 out = _CMD_SKIP;
@@ -555,7 +555,7 @@ async function music_message(message, mapKey) {
             }, (msg)=>{
                 if (msg && msg.length) message.channel.send(msg);
             })
-        } else if (args[0] == _CMD_EUROVISION) {
+        } else if (args[0] == _CMD_EURO) {
             
             try {
                     const arr = await spotify_tracks_from_playlist('https://open.spotify.com/playlist/16cyVWFIWmV7HhEOPsjyo8');
