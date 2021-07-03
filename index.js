@@ -575,9 +575,9 @@ async function music_message(message, mapKey) {
                     message.channel.send('Failed processing spotify link: ' + qry);
                 }
         } else if (args[0] == _CMD_NEXT) {
-            const qry = args.slice(1).join(' ');
+            //const qry = args.slice(1).join(' ');
             try {
-                 addToQueue(qry, mapKey);
+                 addToFisrtPlace(qry, mapKey);
                  message.react(EMOJI_GREEN_CIRCLE)
                 }catch (e) {
                         console.log('music_message 484:' + e)
