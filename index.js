@@ -181,6 +181,7 @@ const _CMD_PLAY        = PREFIX + 'play';
 const _CMD_PAUSE       = PREFIX + 'pause';
 const _CMD_STOP       = PREFIX + 'stop';
 const _CMD_EURO       = PREFIX + 'euro';
+const _CMD_GITANEO       = PREFIX + 'gitaneo';
 const _CMD_NEXT       = PREFIX + 'next';
 const _CMD_RESUME      = PREFIX + 'resume';
 const _CMD_SHUFFLE     = PREFIX + 'shuffle';
@@ -196,7 +197,7 @@ const _CMD_QUEUE       = PREFIX + 'list';
 const _CMD_DEBUG       = PREFIX + 'debug';
 const _CMD_TEST        = PREFIX + 'hello';
 const _CMD_LANG        = PREFIX + 'lang';
-const PLAY_CMDS = [_CMD_PLAY, _CMD_PAUSE, _CMD_NEXT, _CMD_STOP, _CMD_EURO, _CMD_RESUME, _CMD_SHUFFLE, _CMD_SKIP, _CMD_GENRE, _CMD_GENRES, _CMD_RANDOM, _CMD_CLEAR, _CMD_QUEUE, _CMD_FAVORITE, _CMD_FAVORITES, _CMD_UNFAVORITE];
+const PLAY_CMDS = [_CMD_PLAY, _CMD_PAUSE, _CMD_GITANEO, _CMD_NEXT, _CMD_STOP, _CMD_EURO, _CMD_RESUME, _CMD_SHUFFLE, _CMD_SKIP, _CMD_GENRE, _CMD_GENRES, _CMD_RANDOM, _CMD_CLEAR, _CMD_QUEUE, _CMD_FAVORITE, _CMD_FAVORITES, _CMD_UNFAVORITE];
 
 const EMOJI_GREEN_CIRCLE = '🟢'
 const EMOJI_RED_CIRCLE = '🔴'
@@ -291,6 +292,7 @@ function getHelpString() {
         out += 'music salta/skip\n'
         out += 'music stop/retoma\n'
         out += 'music mezcla/shuffle\n'
+        out += 'music gitaneo/euro\n'
         out += 'music genres\n'
         out += 'music set favorite\n'
         out += 'music favorites\n'
@@ -408,19 +410,19 @@ function process_commands_query(query, mapKey, userid) {
             case 'euro':
                 out = _CMD_EURO;
                 break;
+            case 'gitaneo':
+                out = _CMD_GITANEO;
+                break;
             case 'next':
             case 'siguiente':  
                         out = _CMD_NEXT + ' ' + args; 
                 break;
             case 'salta':
-                out = _CMD_SKIP;
-                break;
+            case 'skip':
             case 'skype':
                 out = _CMD_SKIP;
                 break;
             case 'mezcla':
-                out = _CMD_SHUFFLE;
-                break;
             case 'shuffle':
                 out = _CMD_SHUFFLE;
                 break;
@@ -572,6 +574,18 @@ async function music_message(message, mapKey) {
                     console.log('music_message 464:' + e)
                     message.channel.send('Failed processing spotify link: ' + qry);
                 }
+        } else if (args[0] == _CMD_GITANEO) {
+           
+            try {
+                    const arr = await spotify_tracks_from_playlist('https://open.spotify.com/playlist/5LfG9yUkIZlBqwWeDuVuYv?si=54dc4aacc4de46e2');
+                    console.log(arr.length + ' spotify items from playlist')
+                    for (let item of arr)
+                        addToQueue(item, mapKey);
+                    message.react(EMOJI_GREEN_CIRCLE)
+                } catch(e) {
+                    console.log('music_message 464:' + e)
+                    message.channel.send('Failed processing spotify link: ' + qry);
+                }   
         } else if (args[0] == _CMD_NEXT && args.length) {
             const qry = args.slice(1).join(' ');
             if (qry == 'favorites') {
