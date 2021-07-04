@@ -409,10 +409,8 @@ function process_commands_query(query, mapKey, userid) {
                 out = _CMD_EURO;
                 break;
             case 'next':
-                out = _CMD_NEXT;
-                break;
-            case 'siguiente':
-                out = _CMD_NEXT;
+            case 'siguiente':  
+                        out = _CMD_NEXT + ' ' + args; 
                 break;
             case 'salta':
                 out = _CMD_SKIP;
