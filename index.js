@@ -237,7 +237,7 @@ discordClient.on('message', async (msg) => {
                 if (val.musicYTStream) val.musicYTStream.destroy()
                     guildMap.delete(mapKey)
                 msg.reply("Disconnected.")
-                clearmessages();
+                clearmessages(mapKey);
             } else {
                 msg.reply("Cannot leave because not connected.")
             }
@@ -994,7 +994,7 @@ function shuffleMusic(mapKey, cbok, cberr) {
     cbok()
 }
 
-async function clearmessages() {
+async function clearmessages(mapKey) {
    
      const member = message.mentions.memebers.fisrt();
      const messages = message.channel.messages.fetch();
