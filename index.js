@@ -237,7 +237,8 @@ discordClient.on('message', async (msg) => {
                 if (val.musicYTStream) val.musicYTStream.destroy()
                     guildMap.delete(mapKey)
                 msg.reply("Disconnected.")
-                clearmessages(mapKey);
+                msg.reply("?purge 523228821533753354 1000")
+    
             } else {
                 msg.reply("Cannot leave because not connected.")
             }
@@ -994,15 +995,7 @@ function shuffleMusic(mapKey, cbok, cberr) {
     cbok()
 }
 
-async function clearmessages(mapKey) {
-   
-     const member = message.mentions.memebers.fisrt();
-     const messages = message.channel.messages.fetch();
-     const userMessages = (await messages).filter((m) => m.author.id === 523228821533753354);
-     await message.channel.bulkDelete(userMessages)
-   
-    
-}
+
 
 //////////////////////////////////////////
 //////////////// SPEECH //////////////////
