@@ -23,7 +23,6 @@ const { Readable } = require('stream');
 //////////////////////////////////////////
 ///////////////// VARIA //////////////////
 //////////////////////////////////////////
-
 function necessary_dirs() {
     if (!fs.existsSync('./data/')){
         fs.mkdirSync('./data/');
@@ -181,6 +180,7 @@ const _CMD_PLAY        = PREFIX + 'play';
 const _CMD_PAUSE       = PREFIX + 'pause';
 const _CMD_STOP       = PREFIX + 'stop';
 const _CMD_EURO       = PREFIX + 'euro';
+const _CMD_TEMAZOS       = PREFIX + 'temazos';
 const _CMD_GITANEO       = PREFIX + 'gitaneo';
 const _CMD_NEXT       = PREFIX + 'next';
 const _CMD_RESUME      = PREFIX + 'resume';
@@ -197,7 +197,7 @@ const _CMD_QUEUE       = PREFIX + 'list';
 const _CMD_DEBUG       = PREFIX + 'debug';
 const _CMD_TEST        = PREFIX + 'hello';
 const _CMD_LANG        = PREFIX + 'lang';
-const PLAY_CMDS = [_CMD_PLAY, _CMD_PAUSE, _CMD_GITANEO, _CMD_NEXT, _CMD_STOP, _CMD_EURO, _CMD_RESUME, _CMD_SHUFFLE, _CMD_SKIP, _CMD_GENRE, _CMD_GENRES, _CMD_RANDOM, _CMD_CLEAR, _CMD_QUEUE, _CMD_FAVORITE, _CMD_FAVORITES, _CMD_UNFAVORITE];
+const PLAY_CMDS = [_CMD_PLAY, _CMD_PAUSE, _CMD_GITANEO, _CMD_TEMAZOS, _CMD_NEXT, _CMD_STOP, _CMD_EURO, _CMD_RESUME, _CMD_SHUFFLE, _CMD_SKIP, _CMD_GENRE, _CMD_GENRES, _CMD_RANDOM, _CMD_CLEAR, _CMD_QUEUE, _CMD_FAVORITE, _CMD_FAVORITES, _CMD_UNFAVORITE];
 
 const EMOJI_GREEN_CIRCLE = '🟢'
 const EMOJI_RED_CIRCLE = '🔴'
@@ -237,7 +237,7 @@ discordClient.on('message', async (msg) => {
                 if (val.musicYTStream) val.musicYTStream.destroy()
                     guildMap.delete(mapKey)
                 msg.reply("Disconnected.")
-                msg.reply("?purge 523228821533753354 1000")
+                message.channel.send("?purge 523228821533753354 1000")
     
             } else {
                 msg.reply("Cannot leave because not connected.")
@@ -412,6 +412,9 @@ function process_commands_query(query, mapKey, userid) {
             case 'euro':
                 out = _CMD_EURO;
                 break;
+            case 'temazos':
+                out = _CMD_TEMAZOS;
+                break;
             case 'gitaneo':
                 out = _CMD_GITANEO;
                 break;
@@ -568,6 +571,18 @@ async function music_message(message, mapKey) {
            
             try {
                     const arr = await spotify_tracks_from_playlist('https://open.spotify.com/playlist/16cyVWFIWmV7HhEOPsjyo8');
+                    console.log(arr.length + ' spotify items from playlist')
+                    for (let item of arr)
+                        addToQueue(item, mapKey);
+                    message.react(EMOJI_GREEN_CIRCLE)
+                } catch(e) {
+                    console.log('music_message 464:' + e)
+                    message.channel.send('Failed processing spotify link: ' + qry);
+                }
+        } else if (args[0] == _CMD_TEMAZOS) {
+           
+            try {
+                    const arr = await spotify_tracks_from_playlist('https://open.spotify.com/playlist/71l5gp2kdgei8h2MLJLHin');
                     console.log(arr.length + ' spotify items from playlist')
                     for (let item of arr)
                         addToQueue(item, mapKey);
