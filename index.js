@@ -237,7 +237,8 @@ discordClient.on('message', async (msg) => {
                 if (val.musicYTStream) val.musicYTStream.destroy()
                     guildMap.delete(mapKey)
                 msg.reply("Disconnected.")
-                msg.channel.send("?purge 523228821533753354 1000")
+                msg.channel.send(".cleanup bots")
+                msg.channel.send(".cleanup !")
     
             } else {
                 msg.reply("Cannot leave because not connected.")
