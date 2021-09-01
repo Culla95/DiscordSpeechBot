@@ -238,7 +238,7 @@ discordClient.on('message', async (msg) => {
                     guildMap.delete(mapKey)
                 msg.reply("Disconnected.")
                 msg.channel.send(".cleanup bots")
-                msg.channel.send(".cleanup !")
+                msg.channel.send(".cleanup commands !")
     
             } else {
                 msg.reply("Cannot leave because not connected.")
