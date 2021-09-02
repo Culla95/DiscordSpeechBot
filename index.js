@@ -231,17 +231,21 @@ discordClient.on('message', async (msg) => {
             }
         } else if (msg.content.trim().toLowerCase() == _CMD_LEAVE) {
             if (guildMap.has(mapKey)) {
-                msg.channel.messages.fetch({
-                      limit: 100 // Change `100` to however many messages you want to fetch
-                }).then((messages) => { 
-                    const botMessages = [];
-                    messages.filter(m => m.content.startsWith("!")).forEach(msg => botMessages.push(msg))
-                    msg.channel.bulkDelete(botMessages).then(() => {
-                        msg.channel.send("Cleared bot messages").then(msg => msg.delete({
-                            timeout: 3000
-                        }))
-                    });
-                })
+                try{
+                        msg.channel.messages.fetch({
+                              limit: 100 // Change `100` to however many messages you want to fetch
+                        }).then((messages) => { 
+                            const botMessages = [];
+                            messages.filter(m => m.content.startsWith("!")).forEach(msg => botMessages.push(msg))
+                            msg.channel.bulkDelete(botMessages).then(() => {
+                                msg.channel.send("Cleared bot messages").then(msg => msg.delete({
+                                    timeout: 3000
+                                }))
+                            });
+                        })
+                } catch (err) {
+                    next(err);
+                }    
                 let val = guildMap.get(mapKey);
                 if (val.voice_Channel) val.voice_Channel.leave()
                 if (val.voice_Connection) val.voice_Connection.disconnect()
