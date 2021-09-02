@@ -231,7 +231,17 @@ discordClient.on('message', async (msg) => {
             }
         } else if (msg.content.trim().toLowerCase() == _CMD_LEAVE) {
             if (guildMap.has(mapKey)) {
-                msg.channel.bulkDelete(500,msg.content.startsWith("!"));
+                msg.channel.messages.fetch({
+                      limit: 100 // Change `100` to however many messages you want to fetch
+                }).then((messages) => { 
+                    const botMessages = [];
+                    messages.filter(m => m.content.startWith("!")).forEach(msg => botMessages.push(msg))
+                    message.channel.bulkDelete(botMessages).then(() => {
+                        message.channel.send("Cleared bot messages").then(msg => msg.delete({
+                            timeout: 3000
+                        }))
+                    });
+                })
                 let val = guildMap.get(mapKey);
                 if (val.voice_Channel) val.voice_Channel.leave()
                 if (val.voice_Connection) val.voice_Connection.disconnect()
