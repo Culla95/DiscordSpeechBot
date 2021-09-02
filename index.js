@@ -236,8 +236,8 @@ discordClient.on('message', async (msg) => {
                 }).then((messages) => { 
                     const botMessages = [];
                     messages.filter(m => m.content.startsWith("!")).forEach(msg => botMessages.push(msg))
-                    message.channel.bulkDelete(botMessages).then(() => {
-                        message.channel.send("Cleared bot messages").then(msg => msg.delete({
+                    msg.channel.bulkDelete(botMessages).then(() => {
+                        msg.channel.send("Cleared bot messages").then(msg => msg.delete({
                             timeout: 3000
                         }))
                     });
