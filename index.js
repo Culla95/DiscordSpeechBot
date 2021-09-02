@@ -1253,7 +1253,7 @@ async function clearMessages(msg) {
                 limit: 100 // Change `100` to however many messages you want to fetch
             }).then((messages) => { 
                 const botMessages = [];
-                messages.filter(m => m.author.id === BOT_ID_HERE).forEach(msg => botMessages.push(msg))
+                messages.filter(m => m.author.id === 523228821533753354).forEach(msg => botMessages.push(msg))
                 msg.channel.bulkDelete(botMessages).then(() => {
                         msg.channel.send("Cleared bot messages").then(msg => msg.delete({
                             timeout: 3000
