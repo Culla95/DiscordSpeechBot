@@ -943,7 +943,7 @@ async function transcribe_witai(buffer) {
   //          return output._text
     //    if (output && 'text' in output && output.text.length)
       //      return output.text
-        return output;
+        return pruebaaaa;
     } catch (e) { console.log('transcribe_witai 851:' + e); console.log(e) }
 }
 
