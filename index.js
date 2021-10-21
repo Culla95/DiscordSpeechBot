@@ -938,7 +938,7 @@ async function transcribe_witai(buffer) {
         console.log("pruebaaaa type: "+typeof pruebaaaa)
         console.log("transcribewitaioutput: " + output)
         //console.log("pruebaaaa: " + pruebaaaa)
-        pruebaaaa = pruebaaaa.substr(8,pruebaaaa.length);
+        pruebaaaa = pruebaaaa.substr(11,pruebaaaa.length);
         console.log("pruebaaaa: " + pruebaaaa)
         stream.destroy()
 //        if (output && '_text' in output && output._text.length)
