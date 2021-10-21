@@ -1045,14 +1045,17 @@ async function transcribe_witai(buffer) {
         var stream = Readable.from(buffer);
         const contenttype = "audio/raw;encoding=signed-integer;bits=16;rate=48k;endian=little"
         const output = await extractSpeechIntent(WITAPIKEY, stream, contenttype)
+        var temp_output = output.split(",");
+        var final_output = temp_output[temp_output.length-2]
+        final_output = final_output.substr(12,(final_output.length-1));
         witAI_lastcallTS = Math.floor(new Date());
         console.log(output)
         stream.destroy()
-        if (output && '_text' in output && output._text.length)
-            return output._text
-        if (output && 'text' in output && output.text.length)
-            return output.text
-        return output;
+        //if (output && '_text' in output && output._text.length)
+          //  return output._text
+        //if (output && 'text' in output && output.text.length)
+          //  return output.text
+        return final_output;
     } catch (e) { console.log('transcribe_witai 851:' + e); console.log(e) }
 }
 
