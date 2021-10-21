@@ -1049,7 +1049,7 @@ async function transcribe_witai(buffer) {
         var final_output = temp_output[temp_output.length-2]
         final_output = final_output.substr(12,(final_output.length-4));
         witAI_lastcallTS = Math.floor(new Date());
-        console.log(output)
+        console.log("final_output: "+final_output)
         stream.destroy()
         //if (output && '_text' in output && output._text.length)
           //  return output._text
