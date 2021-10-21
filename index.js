@@ -393,13 +393,13 @@ function speak_impl(voice_Connection, mapKey) {
 
 function process_commands_query(query, mapKey, userid) {
     console.log("query: "+ query)
-    if (!query || !query.length)
-        return;
+    //if (!query || !query.length)
+     // return;
 
     let out = null;
 
-    const regex = /^music ([a-zA-Z]+)(.+?)?$/;
-    const m = query.toLowerCase().match(regex);
+    var regex = /^music ([a-zA-Z]+)(.+?)?$/;
+    var = query.toLowerCase().match(regex);
     console.log("m: "+ m)
     if (m && m.length) {
         const cmd = (m[1]||'').trim();
