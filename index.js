@@ -392,6 +392,7 @@ function speak_impl(voice_Connection, mapKey) {
 }
 
 function process_commands_query(query, mapKey, userid) {
+    console.log("query: "+ query)
     if (!query || !query.length)
         return;
 
@@ -399,9 +400,12 @@ function process_commands_query(query, mapKey, userid) {
 
     const regex = /^music ([a-zA-Z]+)(.+?)?$/;
     const m = query.toLowerCase().match(regex);
+    console.log("m: "+ m)
     if (m && m.length) {
         const cmd = (m[1]||'').trim();
+        console.log("cmd: "+ cmd)
         const args = (m[2]||'').trim();
+        console.log("args: "+ args)
 
         switch(cmd) {
             case 'help':
