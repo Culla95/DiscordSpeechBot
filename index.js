@@ -375,9 +375,13 @@ function speak_impl(voice_Connection, mapKey) {
 
             try {
                 let new_buffer = await convert_audio(buffer)
+                console.log("Pretranscribe")
                 let out = await transcribe(new_buffer);
+                console.log("Posttranscribe")
                 if (out != null)
+                    console.log("preprocesscommands")
                     process_commands_query(out, mapKey, user.id);
+                    console.log("posprocesscommands")
             } catch (e) {
                 console.log('tmpraw rename: ' + e)
             }
