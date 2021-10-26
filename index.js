@@ -1140,7 +1140,7 @@ function isYoutubePlaylist(str) {
 
 async function youtube_tracks_from_playlist(url, isretry=false) {
     //const data = await ytlist(url, 'url');
-    const data = await usetube.searchVideo(url);
+    const data = await usetube.getPlaylistVideos(url);
     console.log("url: " + url)
     console.log("data: " + data)
     console.log("data Inspect: " + util.inspect(data))
