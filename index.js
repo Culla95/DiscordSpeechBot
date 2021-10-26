@@ -543,6 +543,10 @@ async function music_message(message, mapKey) {
                 if (isYoutube(qry) && isYoutubePlaylist(qry)) {
                     try {
                         const arr = await youtube_tracks_from_playlist(qry);
+                        console.log("arr: " + arr)
+                        console.log("arr.playlist.length: " + arr.data.playlist.length)
+                        console.log("arr Inspect: " + util.inspect(arr))
+                        console.log("arr stringify: " + JSON.stringify(arr))
                         for (let item of arr)
                             addToQueue(item, mapKey)
                         message.react(EMOJI_GREEN_CIRCLE)
@@ -1136,10 +1140,7 @@ function isYoutubePlaylist(str) {
 
 async function youtube_tracks_from_playlist(url, isretry=false) {
     const data = await ytlist(url, 'url');
-    console.log("Data: " + data)
-    console.log("Data.playlist.length: " + data.data.playlist.length)
-    console.log("Data Inspect: " + util.inspect(data))
-    console.log("Data stringify: " + JSON.stringify(data))
+    
     return data.data.playlist
     /*if (data && 'data' in data && 'playlist' in data.data && data.data.playlist && data.data.playlist.length) {
         return data.data.playlist
