@@ -1111,7 +1111,8 @@ const ytdl = require('ytdl-core');
 const getYoutubeID = require('get-youtube-id');
 const ytlist = require('youtube-playlist');
 const yts = util.promisify(require('yt-search'))
-const usetube = require('usetube')
+//const usetube = require('usetube')
+const ytfps = require('ytfps');
 
 async function searchYoutubeVideo(query) {
     const r = await yts(query);
@@ -1140,12 +1141,17 @@ function isYoutubePlaylist(str) {
 
 async function youtube_tracks_from_playlist(url, isretry=false) {
     //const data = await ytlist(url, 'url');
-    const data = await usetube.getPlaylistVideos(url);
-    console.log("url: " + url)
-    console.log("data: " + data)
-    console.log("data Inspect: " + util.inspect(data))
-    console.log("data stringify: " + JSON.stringify(data))
-    return data
+    //const data = await usetube.getPlaylistVideos(url);
+    ytfps('PLAbeRqyTx1rIGWY13HgPyh0VF0LdoTQFp').then(playlist => {
+        
+        console.log("url: " + url)
+        console.log("playlist: " + playlist)
+        console.log("playlist Inspect: " + util.inspect(playlist))
+        console.log("playlist stringify: " + JSON.stringify(playlist))
+        return data
+    }).catch(err => {
+    throw err;
+    });
     /*if (data && 'data' in data && 'playlist' in data.data && data.data.playlist && data.data.playlist.length) {
         return data.data.playlist
     } else {
