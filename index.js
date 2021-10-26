@@ -1139,8 +1139,11 @@ function isYoutubePlaylist(str) {
 
 async function youtube_tracks_from_playlist(url, isretry=false) {
     const data = await ytlist(url, 'url');
+    console.log("data: " + data)
     
-    return data.data.playlist
+    console.log("data Inspect: " + util.inspect(data))
+    console.log("data stringify: " + JSON.stringify(data))
+    return data
     /*if (data && 'data' in data && 'playlist' in data.data && data.data.playlist && data.data.playlist.length) {
         return data.data.playlist
     } else {
