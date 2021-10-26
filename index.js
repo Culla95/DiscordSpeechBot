@@ -1142,7 +1142,7 @@ function isYoutubePlaylist(str) {
 async function youtube_tracks_from_playlist(url, isretry=false) {
     //const data = await ytlist(url, 'url');
     //const data = await usetube.getPlaylistVideos(url);
-    ytfps('PLAbeRqyTx1rIGWY13HgPyh0VF0LdoTQFp').then(playlist => {
+    ytfps(url).then(playlist => {
         
         console.log("url: " + url)
         console.log("playlist: " + playlist)
