@@ -1112,7 +1112,7 @@ const getYoutubeID = require('get-youtube-id');
 const ytlist = require('youtube-playlist');
 const yts = util.promisify(require('yt-search'))
 //const usetube = require('usetube')
-const ytfps = require('ytfps');
+const ytfps = require('@maroxy/ytfps');
 
 async function searchYoutubeVideo(query) {
     const r = await yts(query);
