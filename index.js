@@ -1148,7 +1148,7 @@ async function youtube_tracks_from_playlist(url, isretry=false) {
         console.log("playlist: " + playlist)
         console.log("playlist Inspect: " + util.inspect(playlist))
         console.log("playlist stringify: " + JSON.stringify(playlist))
-        return data
+        return playlist
     }).catch(err => {
     throw err;
     });
