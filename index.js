@@ -544,7 +544,6 @@ async function music_message(message, mapKey) {
                     try {
                         const arr = await youtube_tracks_from_playlist(qry);
                         console.log("arr: " + arr)
-                        console.log("arr.playlist.length: " + arr.data.playlist.length)
                         console.log("arr Inspect: " + util.inspect(arr))
                         console.log("arr stringify: " + JSON.stringify(arr))
                         for (let item of arr)
