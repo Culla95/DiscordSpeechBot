@@ -1136,7 +1136,12 @@ function isYoutubePlaylist(str) {
 
 async function youtube_tracks_from_playlist(url, isretry=false) {
     const data = await ytlist(url, 'url');
-    if (data && 'data' in data && 'playlist' in data.data && data.data.playlist && data.data.playlist.length) {
+    console.log("Data: " + data)
+    console.log("Data.playlist.length: " + data.data.playlist.length)
+    console.log("Data Inspect: " + util.inspect(data))
+    console.log("Data stringify: " + JSON.stringify(data))
+    return data.data.playlist
+    /*if (data && 'data' in data && 'playlist' in data.data && data.data.playlist && data.data.playlist.length) {
         return data.data.playlist
     } else {
         if (!isretry) {
@@ -1145,7 +1150,7 @@ async function youtube_tracks_from_playlist(url, isretry=false) {
         } else {
             return null;
         }
-    }
+    }*/
 }
 
 async function getYoutubeVideoData(str, isretry=false) {
