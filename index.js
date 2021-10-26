@@ -1111,7 +1111,7 @@ const ytdl = require('ytdl-core');
 const getYoutubeID = require('get-youtube-id');
 const ytlist = require('youtube-playlist');
 const yts = util.promisify(require('yt-search'))
-const usetube = require('usetube')
+//const usetube = require('usetube')
 
 async function searchYoutubeVideo(query) {
     const r = await yts(query);
@@ -1139,8 +1139,8 @@ function isYoutubePlaylist(str) {
 }
 
 async function youtube_tracks_from_playlist(url, isretry=false) {
-    //const data = await ytlist(url, 'url');
-    const data = await usetube.searchVideo(url);
+    const data = await ytlist(url, 'url');
+    //const data = await usetube.searchVideo(url);
     console.log("url: " + url)
     console.log("data: " + data)
     console.log("data Inspect: " + util.inspect(data))
