@@ -1047,7 +1047,7 @@ async function transcribe_witai(buffer) {
         const extractSpeechIntent = util.promisify(witClient.extractSpeechIntent);
         var stream = Readable.from(buffer);
         const contenttype = "audio/raw;encoding=signed-integer;bits=16;rate=48k;endian=little"
-        const output = await extractSpeechIntent(WITAPIKEY, stream, contenttype)
+        const temp_output = await extractSpeechIntent(WITAPIKEY, stream, contenttype)
         //var temp_output = output.split(",");
         var final_output = temp_output[temp_output.length-2]
         final_output = final_output.substr(12,(final_output.length)-1);
