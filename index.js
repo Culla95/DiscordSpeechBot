@@ -1146,7 +1146,8 @@ async function youtube_tracks_from_playlist(url, isretry=false) {
         
         console.log("url: " + url)
         console.log("playlist: " + playlist)
-        console.log("playlist Inspect: " + util.inspect(playlist))
+        var listaplay = playlist.getJSONArray("videos")
+        console.log("playlist Inspect: " + util.inspect(listaplay))
         
         return playlist.videos.url
     }).catch(err => {
