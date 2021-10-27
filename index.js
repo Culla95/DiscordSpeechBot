@@ -1145,6 +1145,15 @@ async function youtube_tracks_from_playlist(url, isretry=false) {
     ytfps(url).then(playlist => {
         
         console.log("url: " + url)
+        let urls = [];
+        let titles = [];
+        playlist.videos.forEach(element => {
+            urls.push(element.url);
+            titles.push(element.title);
+        });
+
+        console.log("urls",urls);
+        console.log("titles",titles);
                                                                                         //console.log("playlist.videos"+util.inspect(playlist.videos)) FUNCIONA
         /*console.log("(playlist).videos"+util.inspect(playlist).videos)
         console.log("playlist in videos inspect"+ util.inspect('videos' in playlist))
@@ -1159,9 +1168,9 @@ async function youtube_tracks_from_playlist(url, isretry=false) {
             urls.push(v.title)
             titles.push(v.url);
         });*/
-        console.log("urls: "+util.inspect(util.inspect(playlist.videos).url))
-        console.log("titles: "+util.inspect(playlist.videos.titles))
-        console.log("videos: "+util.inspect(playlist.videos))
+        //console.log("urls: "+util.inspect(util.inspect(playlist.videos).url))
+        //console.log("titles: "+util.inspect(playlist.videos.titles))
+        //console.log("videos: "+util.inspect(playlist.videos))
         //console.log("urls: " + urls)
         //console.log("titles: " + titles)
         //console.log("playlist Inspect: " + util.inspect(playlist.getJSONObject("videos")))
