@@ -1284,9 +1284,16 @@ async function clearMessages(msg) {
                 const botMessages = [];
                 messages.filter(m => m.author.id === 523228821533753354).forEach(msg => botMessages.push(msg))
                 msg.channel.bulkDelete(botMessages).then(() => {
-                        msg.channel.send("Cleared bot messages").then(msg => msg.delete({
-                            timeout: 3000
+                        msg.channel.send("Please use the commands below to clear the chat").then(msg => msg.delete({
+                            timeout: 600000
                         }))
+                        msg.channel.send(".clean bot").then(msg => msg.delete({
+                            timeout: 600000
+                        }))
+                        msg.channel.send(".clean command !").then(msg => msg.delete({
+                            timeout: 600000
+                        }))
+                       
                 });
             })    
         .catch(function(err) {
