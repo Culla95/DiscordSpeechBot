@@ -1142,44 +1142,26 @@ function isYoutubePlaylist(str) {
 async function youtube_tracks_from_playlist(url, isretry=false) {
     //const data = await ytlist(url, 'url');
     //const data = await usetube.getPlaylistVideos(url);
-    ytfps(url).then(playlist => {
+    
+    const playlist = await ytfps(url);  
+    console.log("playlist",playlist);
+    if (playlist.videos.length > 1) {
+         //ytfps(url).then(playlist => {
         
-        console.log("url: " + url)
-        let urls = [];
-        let titles = [];
-        playlist.videos.forEach(element => {
-            urls.push(element.url);
-            titles.push(element.title);
+            //console.log("url: " + url)
+            let urls = [];
+            let titles = [];
+            playlist.videos.forEach(element => {
+                urls.push(element.url);
+                titles.push(element.title);
+            });
+            console.log("urls",urls);
+            console.log("titles",titles);
+           //console.log("playlist.videos"+util.inspect(playlist.videos)) 
+           
+        }).catch(err => {
+        throw err;
         });
-
-        console.log("urls",urls);
-        console.log("titles",titles);
-                                                                                        //console.log("playlist.videos"+util.inspect(playlist.videos)) FUNCIONA
-        /*console.log("(playlist).videos"+util.inspect(playlist).videos)
-        console.log("playlist in videos inspect"+ util.inspect('videos' in playlist))
-        console.log("playlist in videos"+ ('videos' in playlist))*/
-        
-        /*util.inspect(playlist.videos).forEach(video => {
-            urls.push(video.url);
-            titles.push(video.title);
-        });*/
-        /*util.inspect(playlist.videos).map(v => {
-  
-            urls.push(v.title)
-            titles.push(v.url);
-        });*/
-        //console.log("urls: "+util.inspect(util.inspect(playlist.videos).url))
-        //console.log("titles: "+util.inspect(playlist.videos.titles))
-        //console.log("videos: "+util.inspect(playlist.videos))
-        //console.log("urls: " + urls)
-        //console.log("titles: " + titles)
-        //console.log("playlist Inspect: " + util.inspect(playlist.getJSONObject("videos")))
-        
-        return urls
-    }).catch(err => {
-    throw err;
-    });
-    /*if (data && 'data' in data && 'playlist' in data.data && data.data.playlist && data.data.playlist.length) {
         return data.data.playlist
     } else {
         if (!isretry) {
@@ -1188,7 +1170,7 @@ async function youtube_tracks_from_playlist(url, isretry=false) {
         } else {
             return null;
         }
-    }*/
+    }
 }
 
 async function getYoutubeVideoData(str, isretry=false) {
