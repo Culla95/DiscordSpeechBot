@@ -1159,8 +1159,9 @@ async function youtube_tracks_from_playlist(url, isretry=false) {
             urls.push(v.title)
             titles.push(v.url);
         });*/
-        console.log("urls: "+util.inspect(playlist.videos.url))
+        console.log("urls: "+util.inspect(util.inspect(playlist.videos).url))
         console.log("titles: "+util.inspect(playlist.videos.titles))
+        console.log("videos: "+util.inspect(playlist.videos))
         //console.log("urls: " + urls)
         //console.log("titles: " + titles)
         //console.log("playlist Inspect: " + util.inspect(playlist.getJSONObject("videos")))
