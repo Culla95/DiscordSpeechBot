@@ -1287,10 +1287,10 @@ async function clearMessages(msg) {
                         msg.channel.send("Please use the commands below to clear the chat").then(msg => msg.delete({
                             timeout: 600000
                         }))
-                        msg.channel.send(".clean bot").then(msg => msg.delete({
+                        msg.channel.send(".clean command !").then(msg => msg.delete({
                             timeout: 600000
                         }))
-                        msg.channel.send(".clean command !").then(msg => msg.delete({
+                        msg.channel.send(".clean bot").then(msg => msg.delete({
                             timeout: 600000
                         }))
                        
