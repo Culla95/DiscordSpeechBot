@@ -1143,13 +1143,18 @@ async function youtube_tracks_from_playlist(url, isretry=false) {
     //const data = await ytlist(url, 'url');
     //const data = await usetube.getPlaylistVideos(url);
     ytfps(url).then(playlist => {
-        
+        const urls = [];
+        const titles = [];
         console.log("url: " + url)
+        util.inspect(playlist).videos.forEach(video => {
+            urls.push(video.url);
+            titles.push(video.title);
+        });
+        console.log("urls: " + urls)
+        console.log("titles: " + titles)
+        //console.log("playlist Inspect: " + util.inspect(playlist.getJSONObject("videos")))
         
-        console.log("playlist: " + playlist)
-        console.log("playlist Inspect: " + util.inspect(playlist.getJSONObject("videos")))
-        
-        return playlist.videos.url
+        return urls
     }).catch(err => {
     throw err;
     });
