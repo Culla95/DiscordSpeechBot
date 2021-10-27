@@ -1159,10 +1159,10 @@ async function youtube_tracks_from_playlist(url, isretry=false) {
             console.log("titles",titles);
            //console.log("playlist.videos"+util.inspect(playlist.videos)) 
            
-        }).catch(err => {
-        throw err;
-        });
-        return data.data.playlist
+        //}).catch(err => {
+        //throw err;
+       // });
+        return titles
     } else {
         if (!isretry) {
             console.log('retrying yt playlist processing')
