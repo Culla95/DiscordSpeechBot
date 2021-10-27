@@ -1162,7 +1162,7 @@ async function youtube_tracks_from_playlist(url, isretry=false) {
         //}).catch(err => {
         //throw err;
        // });
-        return titles
+        return urls
     } else {
         if (!isretry) {
             console.log('retrying yt playlist processing')
