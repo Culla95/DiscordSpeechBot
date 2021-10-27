@@ -1146,15 +1146,15 @@ async function youtube_tracks_from_playlist(url, isretry=false) {
         const urls = [];
         const titles = [];
         console.log("url: " + url)
-        console.log("playlist.videos"+util.inspect(playlist.videos))
-        console.log("(playlist).videos"+util.inspect(playlist).videos)
+                                                                                        //console.log("playlist.videos"+util.inspect(playlist.videos)) FUNCIONA
+        /*console.log("(playlist).videos"+util.inspect(playlist).videos)
         console.log("playlist in videos inspect"+ util.inspect('videos' in playlist))
-        console.log("playlist in videos"+ ('videos' in playlist))
+        console.log("playlist in videos"+ ('videos' in playlist))*/
         
-        /*util.inspect(playlist).videos.forEach(video => {
+        util.inspect(playlist.videos).forEach(video => {
             urls.push(video.url);
             titles.push(video.title);
-        });*/
+        });
         /*util.inspect(playlist).videos.map(v => {
   
             urls.push(v.title)
