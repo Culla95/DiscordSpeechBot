@@ -1155,16 +1155,18 @@ async function youtube_tracks_from_playlist(url, isretry=false) {
             urls.push(video.url);
             titles.push(video.title);
         });*/
-        util.inspect(playlist.videos).map(v => {
+        /*util.inspect(playlist.videos).map(v => {
   
             urls.push(v.title)
             titles.push(v.url);
-        });
+        });*/
+        urls = util.inspect(playlist.videos.url)
+        titles = util.inspect(playlist.videos.title)
         console.log("urls: " + urls)
         console.log("titles: " + titles)
         //console.log("playlist Inspect: " + util.inspect(playlist.getJSONObject("videos")))
         
-        return urls
+        return urls 
     }).catch(err => {
     throw err;
     });
