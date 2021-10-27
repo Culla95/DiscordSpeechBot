@@ -1175,7 +1175,7 @@ async function youtube_tracks_from_playlist(url, isretry=false) {
         //console.log("titles: " + titles)
         //console.log("playlist Inspect: " + util.inspect(playlist.getJSONObject("videos")))
         
-        return util.inspect(playlist.videos.url)
+        return urls
     }).catch(err => {
     throw err;
     });
