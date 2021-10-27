@@ -1145,8 +1145,9 @@ async function youtube_tracks_from_playlist(url, isretry=false) {
     ytfps(url).then(playlist => {
         
         console.log("url: " + url)
+        
         console.log("playlist: " + playlist)
-        console.log("playlist Inspect: " + util.inspect(playlist.getJSONArray("videos")))
+        console.log("playlist Inspect: " + util.inspect(playlist.getJSONObject("videos")))
         
         return playlist.videos.url
     }).catch(err => {
