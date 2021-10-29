@@ -1108,6 +1108,7 @@ const ytdl = require('ytdl-core');
 const getYoutubeID = require('get-youtube-id');
 const ytlist = require('youtube-playlist');
 const yts = util.promisify(require('yt-search'))
+const ytfps = require('@maroxy/ytfps');
 
 async function searchYoutubeVideo(query) {
     const r = await yts(query);
@@ -1135,9 +1136,16 @@ function isYoutubePlaylist(str) {
 }
 
 async function youtube_tracks_from_playlist(url, isretry=false) {
-    const data = await ytlist(url, 'url');
-    if (data && 'data' in data && 'playlist' in data.data && data.data.playlist && data.data.playlist.length) {
-        return data.data.playlist
+    const playlist = await ytfps(url);  
+    console.log("playlist",playlist);
+    if (playlist.videos.length > 1) {
+            let urls = [];
+            //let titles = [];
+            playlist.videos.forEach(element => {
+                urls.push(element.url);
+                //titles.push(element.title);
+            });
+        return urls
     } else {
         if (!isretry) {
             console.log('retrying yt playlist processing')
@@ -1259,8 +1267,14 @@ async function clearMessages(msg) {
                 const botMessages = [];
                 messages.filter(m => m.author.id === 523228821533753354).forEach(msg => botMessages.push(msg))
                 msg.channel.bulkDelete(botMessages).then(() => {
-                        msg.channel.send("Cleared bot messages").then(msg => msg.delete({
-                            timeout: 3000
+                        msg.channel.send("Please use the commands below to clear the chat").then(msg => msg.delete({
+                            timeout: 120000
+                        }))
+                        msg.channel.send(".clean command !").then(msg => msg.delete({
+                            timeout: 120000
+                        }))
+                        msg.channel.send(".clean bot").then(msg => msg.delete({
+                            timeout: 120000
                         }))
                 });
             })    
