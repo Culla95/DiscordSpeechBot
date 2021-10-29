@@ -1066,7 +1066,7 @@ async function transcribe_witai(buffer) {
         witAI_lastcallTS = Math.floor(new Date());
         const outputclear = outputjson.replace(/(?:\\[rn]|[\r]+)+/g, ",")
         const jsonparse = JSON.parse("["+outputclear+"]")
-        const output = jsonparse[jsonparse.length - 1]
+        output = jsonparse[jsonparse.length - 1]
         console.log(output)
         stream.destroy()
         if (output && '_text' in output && output._text.length)
