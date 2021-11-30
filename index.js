@@ -450,6 +450,8 @@ function process_commands_query(query, mapKey, userid) {
                     out = _CMD_CLEAR;
                 break;
             case 'lista':
+            case 'queue':
+            case 'list':
                 out = _CMD_QUEUE;
                 break;
             case 'stop':
@@ -1285,6 +1287,8 @@ async function clearMessages(msg) {
             }).then((messages) => { 
                 const botMessages = [];
                 messages.filter(m => m.author.id === 523228821533753354).forEach(msg => botMessages.push(msg))
+                console.log("botMessages: "+util.inspect(botMessages));
+                console.log("msg: "+util.inspect(msg));
                 msg.channel.bulkDelete(botMessages).then(() => {
                         msg.channel.send("Please use the commands below to clear the chat").then(msg => msg.delete({
                             timeout: 120000
