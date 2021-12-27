@@ -1042,13 +1042,16 @@ async function transcribe_witai(buffer) {
     }
 
     try {
-        /*console.log('transcribe_witai')
+        console.log('transcribe_witai')
         const extractSpeechIntent = util.promisify(witClient.extractSpeechIntent);
         var stream = Readable.from(buffer);
         const contenttype = "audio/raw;encoding=signed-integer;bits=16;rate=48k;endian=little"
         const output = await extractSpeechIntent(WITAPIKEY, stream, contenttype)
+        onsole.log("output: "+ util.inspect(output))
         var temp_output = output.split(",");
+        console.log("temp_output: "+ util.inspect(temp_output))
         var final_output = temp_output[temp_output.length-2]
+        onsole.log(util.inspect(final_output))
         final_output = final_output.substr(12,(final_output.length)-1);
         final_output = final_output.slice(0, -1);
         witAI_lastcallTS = Math.floor(new Date());
@@ -1058,8 +1061,8 @@ async function transcribe_witai(buffer) {
           //  return output._text
         //if (output && 'text' in output && output.text.length)
           //  return output.text
-        return final_output;*/
-        console.log('transcribe_witai')
+        return final_output;
+        /*console.log('transcribe_witai')
         const extractSpeechIntent = util.promisify(witClient.extractSpeechIntent);
         var stream = Readable.from(buffer);
         const contenttype = "audio/raw;encoding=signed-integer;bits=16;rate=48k;endian=little"
@@ -1075,7 +1078,7 @@ async function transcribe_witai(buffer) {
             return output._text
         if (output && 'text' in output && output.text.length)
             return output.text
-        return output;
+        return output;*/
         
        
     } catch (e) { console.log('transcribe_witai 851:' + e); console.log(e) }
