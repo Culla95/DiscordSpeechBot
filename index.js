@@ -1047,11 +1047,11 @@ async function transcribe_witai(buffer) {
         var stream = Readable.from(buffer);
         const contenttype = "audio/raw;encoding=signed-integer;bits=16;rate=48k;endian=little"
         const output = await extractSpeechIntent(WITAPIKEY, stream, contenttype)
-        onsole.log("output: "+ util.inspect(output))
+        console.log("output: "+ util.inspect(output))
         var temp_output = output.split(",");
         console.log("temp_output: "+ util.inspect(temp_output))
         var final_output = temp_output[temp_output.length-2]
-        onsole.log(util.inspect(final_output))
+        console.log("final_output"+ util.inspect(final_output))
         final_output = final_output.substr(12,(final_output.length)-1);
         final_output = final_output.slice(0, -1);
         witAI_lastcallTS = Math.floor(new Date());
