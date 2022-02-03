@@ -272,7 +272,8 @@ discordClient.on('message', async (msg) => {
             messageManager.fetch({ limit: 100 }).then((messages) => {
                  messages.forEach((message) => {
                      if ( (message.content.startWith(PREFIX)) || (message.author.id == 523228821533753354)) {
-                            message.delete();
+                         console.log("mesage: "+ util.inspect(message))   
+                         message.delete();
                      }  
                  });
             });
