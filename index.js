@@ -197,7 +197,8 @@ const _CMD_QUEUE       = PREFIX + 'list';
 const _CMD_DEBUG       = PREFIX + 'debug';
 const _CMD_TEST        = PREFIX + 'hello';
 const _CMD_LANG        = PREFIX + 'lang';
-const PLAY_CMDS = [_CMD_PLAY, _CMD_PAUSE, _CMD_GITANEO, _CMD_TEMAZOS, _CMD_NEXT, _CMD_STOP, _CMD_EURO, _CMD_RESUME, _CMD_SHUFFLE, _CMD_SKIP, _CMD_GENRE, _CMD_GENRES, _CMD_RANDOM, _CMD_CLEAR, _CMD_QUEUE, _CMD_FAVORITE, _CMD_FAVORITES, _CMD_UNFAVORITE];
+const _CMD_LIMPIEZA    = PREFIX + 'limpieza';
+const PLAY_CMDS = [_CMD_PLAY, _CMD_LIMPIEZA, _CMD_PAUSE, _CMD_GITANEO, _CMD_TEMAZOS, _CMD_NEXT, _CMD_STOP, _CMD_EURO, _CMD_RESUME, _CMD_SHUFFLE, _CMD_SKIP, _CMD_GENRE, _CMD_GENRES, _CMD_RANDOM, _CMD_CLEAR, _CMD_QUEUE, _CMD_FAVORITE, _CMD_FAVORITES, _CMD_UNFAVORITE];
 
 const EMOJI_GREEN_CIRCLE = '🟢'
 const EMOJI_RED_CIRCLE = '🔴'
@@ -231,7 +232,7 @@ discordClient.on('message', async (msg) => {
             }
         } else if (msg.content.trim().toLowerCase() == _CMD_LEAVE) {
             if (guildMap.has(mapKey)) {
-                await clearMessages(msg);  
+                
                 let val = guildMap.get(mapKey);
                 if (val.voice_Channel) val.voice_Channel.leave()
                 if (val.voice_Connection) val.voice_Connection.disconnect()
@@ -264,6 +265,18 @@ discordClient.on('message', async (msg) => {
         }
         else if (msg.content.trim().toLowerCase() == _CMD_TEST) {
             msg.reply('hello back =)')
+        }
+        else if (msg.content.trim().toLowerCase() == _CMD_LIMPIEZA) {
+            const channel = msg.channel;
+            const messageManager = channel.messages;
+            messageManager.fetch({ limit: 100 }).then((messages) => {
+                 messages.forEach((message) => {
+                     if ( (message.content.startWith(PREFIX)) || (message.author.id == 523228821533753354)) {
+                            message.delete();
+                     }  
+                 });
+            });
+            
         }
         else if (msg.content.split('\n')[0].split(' ')[0].trim().toLowerCase() == _CMD_LANG) {
             const lang = msg.content.replace(_CMD_LANG, '').trim().toLowerCase()
