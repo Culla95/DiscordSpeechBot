@@ -198,7 +198,7 @@ const _CMD_DEBUG       = PREFIX + 'debug';
 const _CMD_TEST        = PREFIX + 'hello';
 const _CMD_LANG        = PREFIX + 'lang';
 const _CMD_LIMPIEZA    = PREFIX + 'limpieza';
-const PLAY_CMDS = [_CMD_PLAY, _CMD_LIMPIEZA, _CMD_PAUSE, _CMD_GITANEO, _CMD_TEMAZOS, _CMD_NEXT, _CMD_STOP, _CMD_EURO, _CMD_RESUME, _CMD_SHUFFLE, _CMD_SKIP, _CMD_GENRE, _CMD_GENRES, _CMD_RANDOM, _CMD_CLEAR, _CMD_QUEUE, _CMD_FAVORITE, _CMD_FAVORITES, _CMD_UNFAVORITE];
+const PLAY_CMDS = [_CMD_PLAY, _CMD_PAUSE, _CMD_GITANEO, _CMD_TEMAZOS, _CMD_NEXT, _CMD_STOP, _CMD_EURO, _CMD_RESUME, _CMD_SHUFFLE, _CMD_SKIP, _CMD_GENRE, _CMD_GENRES, _CMD_RANDOM, _CMD_CLEAR, _CMD_QUEUE, _CMD_FAVORITE, _CMD_FAVORITES, _CMD_UNFAVORITE];
 
 const EMOJI_GREEN_CIRCLE = '🟢'
 const EMOJI_RED_CIRCLE = '🔴'
@@ -231,6 +231,20 @@ discordClient.on('message', async (msg) => {
                     msg.reply('Already connected')
             }
         } else if (msg.content.trim().toLowerCase() == _CMD_LEAVE) {
+            const channel = msg.channel;
+            console.log("HA ENTRADO")
+            const messageManager = channel.messages;
+            messageManager.fetch({ limit: 100 }).then((messages) => {
+                 console.log("mesages manager: "+ util.inspect(messages))
+                 messages.forEach((message) => {
+                     console.log("pre select mesage: "+ util.inspect(message))
+                     if ( (message.content.startWith(PREFIX)) || (message.author.id == 523228821533753354)) {
+                         console.log("mesage: "+ util.inspect(message))   
+                         message.delete();
+                     }  
+                 });
+            });
+            
             if (guildMap.has(mapKey)) {
                 
                 let val = guildMap.get(mapKey);
