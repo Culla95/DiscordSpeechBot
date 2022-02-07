@@ -277,7 +277,8 @@ discordClient.on('message', async (msg) => {
             msg.reply('hello back =)')
         }
         else if (msg.content.trim().toLowerCase() == _CMD_LIMPIEZA) {
-          
+             clearChat(msg, args);         
+            /*
             const channel = msg.channel;
             const messageManager = channel.messages;
             messageManager.fetch({ limit: 100 }).then(messages => {
@@ -288,7 +289,7 @@ discordClient.on('message', async (msg) => {
                     channel.bulkDelete(msgToRemove2);
                 }catch(error){
                 }
-            }); 
+            }); */
             
         }
         else if (msg.content.split('\n')[0].split(' ')[0].trim().toLowerCase() == _CMD_LANG) {
@@ -1385,7 +1386,7 @@ async function spotify_tracks_from_playlist(spotifyurl) {
 async function clearChat (msg, args) {
     const channel = msg.channel;
     const messageManager = channel.messages;
-    const messages = await messageManager.channel.messages.fetch({ limit: 100 });
+    const messages = await messageManager.channel.messages.fetch({ limit: args });
     let filtered1 = messages.filter((msg) => msg.content.startsWith("!"));
     let filtered2 = messages.filter((msg) => msg.author.id == 523228821533753354);
     channel.bulkDelete(filtered1);
