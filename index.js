@@ -277,7 +277,7 @@ discordClient.on('message', async (msg) => {
             msg.reply('hello back =)')
         }
         else if (msg.content.trim().toLowerCase() == _CMD_LIMPIEZA) {
-             clearChat(msg, args);         
+             clearChat(msg, 100);         
             /*
             const channel = msg.channel;
             const messageManager = channel.messages;
