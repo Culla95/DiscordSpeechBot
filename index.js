@@ -239,8 +239,7 @@ discordClient.on('message', async (msg) => {
                          message.delete();
                      }  
                  });
-            });*/
-            clearChat(msg, 100);  
+            });*/  
             
             if (guildMap.has(mapKey)) {
                 
@@ -254,6 +253,7 @@ discordClient.on('message', async (msg) => {
             } else {
                 msg.reply("Cannot leave because not connected.")
             }
+            clearChat(msg, 100);
         }
         else if ( PLAY_CMDS.indexOf( msg.content.trim().toLowerCase().split('\n')[0].split(' ')[0] ) >= 0 ) {
             if (!msg.member.voice.channelID) {
@@ -278,7 +278,7 @@ discordClient.on('message', async (msg) => {
             msg.reply('hello back =)')
         }
         else if (msg.content.trim().toLowerCase() == _CMD_LIMPIEZA) {
-             clearChat(msg, 200);         
+             clearChat(msg, 100);         
             /*
             const channel = msg.channel;
             const messageManager = channel.messages;
