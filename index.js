@@ -235,8 +235,7 @@ discordClient.on('message', async (msg) => {
             const messageManager = channel.messages;
             messageManager.fetch({ limit: 100 }).then((messages) => {
                  messages.forEach((message) => {
-                     if ((message.author.id == 523228821533753354) || (message.content.startsWith(PREFIX))) {
-                         console.log("Post: "+ util.inspect(message))   
+                     if ((message.author.id == 523228821533753354) || (message.content.startsWith(PREFIX))) {  
                          message.delete();
                      }  
                  });
