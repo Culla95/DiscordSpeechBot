@@ -232,10 +232,8 @@ discordClient.on('message', async (msg) => {
             }
         } else if (msg.content.trim().toLowerCase() == _CMD_LEAVE) {
             const channel = msg.channel;
-            console.log("HA ENTRADO")
             const messageManager = channel.messages;
             messageManager.fetch({ limit: 100 }).then((messages) => {
-                 console.log("mesages manager: "+ util.inspect(messages))
                  messages.forEach((message) => {
                      console.log("pre select mesage: "+ util.inspect(message))
                      if ( (message.content.startWith(PREFIX)) || (message.author.id == 523228821533753354)) {
@@ -282,14 +280,12 @@ discordClient.on('message', async (msg) => {
         }
         else if (msg.content.trim().toLowerCase() == _CMD_LIMPIEZA) {
             const channel = msg.channel;
-            console.log("HA ENTRADO")
             const messageManager = channel.messages;
             messageManager.fetch({ limit: 100 }).then((messages) => {
-                 console.log("mesages manager: "+ util.inspect(messages))
                  messages.forEach((message) => {
-                     console.log("pre select mesage: "+ util.inspect(message))
-                     if ( (message.content.startWith(PREFIX)) || (message.author.id == 523228821533753354)) {
-                         console.log("mesage: "+ util.inspect(message))   
+                     console.log("PreCondition: "+ util.inspect(message))
+                     if (message.author.id == 523228821533753354) {
+                         console.log("PostCondition: "+ util.inspect(message))   
                          message.delete();
                      }  
                  });
