@@ -231,7 +231,7 @@ discordClient.on('message', async (msg) => {
                     msg.reply('Already connected')
             }
         } else if (msg.content.trim().toLowerCase() == _CMD_LEAVE) {
-            const channel = msg.channel;
+            /*const channel = msg.channel;
             const messageManager = channel.messages;
             messageManager.fetch({ limit: 100 }).then((messages) => {
                  messages.forEach((message) => {
@@ -239,7 +239,8 @@ discordClient.on('message', async (msg) => {
                          message.delete();
                      }  
                  });
-            });
+            });*/
+            clearChat(msg, 100);  
             
             if (guildMap.has(mapKey)) {
                 
@@ -277,7 +278,7 @@ discordClient.on('message', async (msg) => {
             msg.reply('hello back =)')
         }
         else if (msg.content.trim().toLowerCase() == _CMD_LIMPIEZA) {
-             clearChat(msg, 100);         
+             clearChat(msg, 200);         
             /*
             const channel = msg.channel;
             const messageManager = channel.messages;
