@@ -277,18 +277,17 @@ discordClient.on('message', async (msg) => {
             msg.reply('hello back =)')
         }
         else if (msg.content.trim().toLowerCase() == _CMD_LIMPIEZA) {
-            
+          
             const channel = msg.channel;
             const messageManager = channel.messages;
             messageManager.fetch({ limit: 100 }).then(messages => {
                 var msgToRemove1 = messages.filter(m => m.content.startsWith(PREFIX))
                 var msgToRemove2 = messages.filter(m => m.author.id == 523228821533753354)
-                channel.bulkDelete(msgToRemove1);
-                channel.bulkDelete(msgToRemove2);
-                
-            }).catch(err => {
-                console.log('Error while doing Bulk Delete');
-                console.log(err);
+                try{
+                    channel.bulkDelete(msgToRemove1);
+                    channel.bulkDelete(msgToRemove2);
+                }catch(error){
+                }
             }); 
             
         }
