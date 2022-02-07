@@ -1381,6 +1381,20 @@ async function spotify_tracks_from_playlist(spotifyurl) {
 
     return arr;
 }
+
+async function clearChat (msg, args) {
+    const channel = msg.channel;
+    const messageManager = channel.messages;
+    const messages = await messageManager.channel.messages.fetch({ limit: 100 });
+    let filtered1 = messages.filter((msg) => msg.content.startsWith("!"));
+    let filtered2 = messages.filter((msg) => msg.author.id == 523228821533753354);
+    channel.bulkDelete(filtered1);
+    channel.bulkDelete(filtered2);
+    /*var msgToRemove = messages.filter(m => message.content.startsWith("!"));
+    var msgToDelete = await msg.channel.messages.filter(m => m.content.startsWith("!").fetch({ limit: deleteAmount }).then(async (messages) => {
+        await msg.channel.bulkDelete(messages);
+    });*/
+}
 //////////////////////////////////////////
 //////////////////////////////////////////
 //////////////////////////////////////////
