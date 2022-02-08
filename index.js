@@ -231,16 +231,7 @@ discordClient.on('message', async (msg) => {
                     msg.reply('Already connected')
             }
         } else if (msg.content.trim().toLowerCase() == _CMD_LEAVE) {
-            /*const channel = msg.channel;
-            const messageManager = channel.messages;
-            messageManager.fetch({ limit: 100 }).then((messages) => {
-                 messages.forEach((message) => {
-                     if ((message.author.id == 523228821533753354) || (message.content.startsWith(PREFIX))) {  
-                         message.delete();
-                     }  
-                 });
-            });*/  
-            
+                        
             if (guildMap.has(mapKey)) {
                 
                 let val = guildMap.get(mapKey);
@@ -279,19 +270,7 @@ discordClient.on('message', async (msg) => {
         }
         else if (msg.content.trim().toLowerCase() == _CMD_LIMPIEZA) {
              clearChat(msg, 100);         
-            /*
-            const channel = msg.channel;
-            const messageManager = channel.messages;
-            messageManager.fetch({ limit: 100 }).then(messages => {
-                var msgToRemove1 = messages.filter(m => m.content.startsWith(PREFIX))
-                var msgToRemove2 = messages.filter(m => m.author.id == 523228821533753354)
-                try{
-                    channel.bulkDelete(msgToRemove1);
-                    channel.bulkDelete(msgToRemove2);
-                }catch(error){
-                }
-            }); */
-            
+                        
         }
         else if (msg.content.split('\n')[0].split(' ')[0].trim().toLowerCase() == _CMD_LANG) {
             const lang = msg.content.replace(_CMD_LANG, '').trim().toLowerCase()
@@ -313,6 +292,27 @@ discordClient.on('message', async (msg) => {
         msg.reply('Error#180: Something went wrong, try again or contact the developers if this keeps happening.');
     }
 })
+
+/*client.on('voiceStateUpdate', (oldState, newState) => {
+
+  // if nobody left the channel in question, return.
+  if (oldState.channelID !==  oldState.guild.me.voice.channelID || newState.channel)
+    return;
+  // otherwise, check how many people are in the channel now
+  if (!oldState.channel.members.size - 1) 
+    setTimeout(() => { // if 1 (you), wait five minutes
+      if (!oldState.channel.members.size - 1) // if there's still 1 member, 
+         if (guildMap.has(mapKey)) {
+                
+                let val = guildMap.get(mapKey);
+                if (val.voice_Channel) val.voice_Channel.leave()
+                if (val.voice_Connection) val.voice_Connection.disconnect()
+                if (val.musicYTStream) val.musicYTStream.destroy()
+                    guildMap.delete(mapKey)
+                msg.reply("Disconnected.")     
+         } // leave
+     }, 30000); 
+});*/
 
 function getHelpString() {
     let out = '**VOICE COMMANDS:**\n'
@@ -1311,32 +1311,6 @@ async function spotify_new_releases() {
 
     return arr;
 }
-async function clearMessages(msg) {
-
-        msg.channel.messages.fetch({
-                limit: 100 // Change `100` to however many messages you want to fetch
-            }).then((messages) => { 
-                const botMessages = [];
-                messages.filter(m => m.author.id === 523228821533753354).forEach(msg => botMessages.push(msg))
-                console.log("botMessages: "+util.inspect(botMessages));
-                console.log("msg: "+util.inspect(msg));
-                msg.channel.bulkDelete(botMessages).then(() => {
-                        msg.channel.send("Please use the commands below to clear the chat").then(msg => msg.delete({
-                            timeout: 120000
-                        }))
-                        msg.channel.send(".clean command !").then(msg => msg.delete({
-                            timeout: 120000
-                        }))
-                        msg.channel.send(".clean bot").then(msg => msg.delete({
-                            timeout: 120000
-                        }))
-                });
-            })    
-        .catch(function(err) {
-            console.error('clearMessages error: ' + err);
-        });
-
-}
 
 async function spotify_recommended(genre) {
 
@@ -1392,10 +1366,6 @@ async function clearChat (msg, args) {
     let filtered2 = messages.filter((msg) => msg.author.id == 523228821533753354);
     channel.bulkDelete(filtered1,true);
     channel.bulkDelete(filtered2,true);
-    /*var msgToRemove = messages.filter(m => message.content.startsWith("!"));
-    var msgToDelete = await msg.channel.messages.filter(m => m.content.startsWith("!").fetch({ limit: deleteAmount }).then(async (messages) => {
-        await msg.channel.bulkDelete(messages);
-    });*/
 }
 //////////////////////////////////////////
 //////////////////////////////////////////
