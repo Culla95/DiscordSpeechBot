@@ -1362,10 +1362,10 @@ async function clearChat (msg, args) {
     const channel = msg.channel;
     const messageManager = channel.messages;
     const messages = await messageManager.channel.messages.fetch({ limit: args });
-    let filtered1 = messages.filter((msg) => msg.content.startsWith("!"));
-    let filtered2 = messages.filter((msg) => msg.author.id == 523228821533753354);
+    let filtered1 = messages.filter((msg) => (msg.content.startsWith("!")) || (msg.author.id == 523228821533753354));
+    //let filtered2 = messages.filter((msg) => msg.author.id == 523228821533753354);
     channel.bulkDelete(filtered1,true);
-    channel.bulkDelete(filtered2,true);
+    //channel.bulkDelete(filtered2,true);
 }
 //////////////////////////////////////////
 //////////////////////////////////////////
