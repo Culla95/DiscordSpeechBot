@@ -198,7 +198,8 @@ const _CMD_DEBUG       = PREFIX + 'debug';
 const _CMD_TEST        = PREFIX + 'hello';
 const _CMD_LANG        = PREFIX + 'lang';
 const _CMD_LIMPIEZA    = PREFIX + 'limpieza';
-const PLAY_CMDS = [_CMD_PLAY, _CMD_PAUSE, _CMD_GITANEO, _CMD_TEMAZOS, _CMD_NEXT, _CMD_STOP, _CMD_EURO, _CMD_RESUME, _CMD_SHUFFLE, _CMD_SKIP, _CMD_GENRE, _CMD_GENRES, _CMD_RANDOM, _CMD_CLEAR, _CMD_QUEUE, _CMD_FAVORITE, _CMD_FAVORITES, _CMD_UNFAVORITE];
+const _CMD_CHALECO    = PREFIX + 'chaleco';
+const PLAY_CMDS = [_CMD_PLAY, _CMD_PAUSE,_CMD_LIMPIEZA, _CMD_CHALECO, _CMD_GITANEO, _CMD_TEMAZOS, _CMD_NEXT, _CMD_STOP, _CMD_EURO, _CMD_RESUME, _CMD_SHUFFLE, _CMD_SKIP, _CMD_GENRE, _CMD_GENRES, _CMD_RANDOM, _CMD_CLEAR, _CMD_QUEUE, _CMD_FAVORITE, _CMD_FAVORITES, _CMD_UNFAVORITE];
 
 const EMOJI_GREEN_CIRCLE = '🟢'
 const EMOJI_RED_CIRCLE = '🔴'
@@ -446,6 +447,9 @@ function process_commands_query(query, mapKey, userid) {
             case 'gitaneo':
                 out = _CMD_GITANEO;
                 break;
+            case 'gitaneo':
+                out = _CMD_CHALECO;
+                break;
             case 'next':
             case 'siguiente':  
                         out = _CMD_NEXT + ' ' + args; 
@@ -462,22 +466,23 @@ function process_commands_query(query, mapKey, userid) {
             case 'genres':
                 out = _CMD_GENRES;
                 break;
+            case 'pause':
             case 'para':
                 out = _CMD_PAUSE;
                 break;
             case 'retoma':
-                out = _CMD_RESUME;
-                break;
             case 'resume':
                 out = _CMD_RESUME;
                 break;
             case 'limpia':
-                    out = _CMD_CLEAR;
-                break;
             case 'clear':
                     out = _CMD_CLEAR;
                 break;
+            case 'limpieza':
+                    out = _CMD_LIMPIEZA;
+                break;
             case 'lista':
+            case 'cola':
             case 'queue':
             case 'list':
                 out = _CMD_QUEUE;
@@ -486,6 +491,7 @@ function process_commands_query(query, mapKey, userid) {
                 out = _CMD_STOP;
                 break;
             case 'hello':
+            case 'oli':
                 out = 'hello back =)'
                 break;
             case 'favorites':
@@ -500,6 +506,7 @@ function process_commands_query(query, mapKey, userid) {
                 }
                 break;
             case 'pon':
+            case 'reproduce':
             case 'play':
             case 'player':
                 switch(args) {
@@ -621,6 +628,14 @@ async function music_message(message, mapKey) {
                     console.log('music_message 464:' + e)
                     message.channel.send('Failed processing spotify link: ' + qry);
                 }
+        } else if (args[0] == _CMD_CHALECO) {
+               addToFirstPlace('https://www.youtube.com/watch?v=2dEzYkSiqzY', mapKey);
+               skipMusic(mapKey, ()=>{
+                    message.react(EMOJI_GREEN_CIRCLE)
+                }, (msg)=>{
+                    if (msg && msg.length) message.channel.send(msg);
+                })
+            
         } else if (args[0] == _CMD_GITANEO) {
            
             try {
@@ -650,7 +665,8 @@ async function music_message(message, mapKey) {
                 } else {
                     message.channel.send('No favorites yet.')
                 }
-            }
+            } 
+         
             else if (isSpotify(qry)) {
                 try {
                     const arr = await spotify_tracks_from_playlist(qry);
