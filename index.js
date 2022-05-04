@@ -447,7 +447,7 @@ function process_commands_query(query, mapKey, userid) {
             case 'gitaneo':
                 out = _CMD_GITANEO;
                 break;
-            case 'gitaneo':
+            case 'chaleco':
                 out = _CMD_CHALECO;
                 break;
             case 'next':
@@ -630,6 +630,7 @@ async function music_message(message, mapKey) {
                 }
         } else if (args[0] == _CMD_CHALECO) {
                addToFirstPlace('https://www.youtube.com/watch?v=2dEzYkSiqzY', mapKey);
+               await delay(1000);
                skipMusic(mapKey, ()=>{
                     message.react(EMOJI_GREEN_CIRCLE)
                 }, (msg)=>{
