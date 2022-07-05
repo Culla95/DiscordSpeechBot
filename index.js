@@ -270,7 +270,8 @@ discordClient.on('message', async (msg) => {
             msg.reply('hello back =)')
         }
         else if (msg.content.trim().toLowerCase() == _CMD_LIMPIEZA) {
-             clearChat(msg, 100);         
+            console.log('entra en comando limpieza'); 
+            clearChat(msg, 100);         
                         
         }
         else if (msg.content.split('\n')[0].split(' ')[0].trim().toLowerCase() == _CMD_LANG) {
