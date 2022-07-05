@@ -197,7 +197,7 @@ const _CMD_QUEUE       = PREFIX + 'list';
 const _CMD_DEBUG       = PREFIX + 'debug';
 const _CMD_TEST        = PREFIX + 'limpieza';
 const _CMD_LANG        = PREFIX + 'lang';
-//const _CMD_LIMPIEZA    = PREFIX + 'limpieza';
+const _CMD_LIMPIEZA    = PREFIX + 'limpiezaaa';
 const _CMD_CHALECO    = PREFIX + 'chaleco';
 const PLAY_CMDS = [_CMD_PLAY, _CMD_PAUSE,_CMD_LIMPIEZA, _CMD_CHALECO, _CMD_GITANEO, _CMD_TEMAZOS, _CMD_NEXT, _CMD_STOP, _CMD_EURO, _CMD_RESUME, _CMD_SHUFFLE, _CMD_SKIP, _CMD_GENRE, _CMD_GENRES, _CMD_RANDOM, _CMD_CLEAR, _CMD_QUEUE, _CMD_FAVORITE, _CMD_FAVORITES, _CMD_UNFAVORITE];
 
@@ -267,7 +267,8 @@ discordClient.on('message', async (msg) => {
                 val.debug = true;
         }
         else if (msg.content.trim().toLowerCase() == _CMD_TEST) {
-            msg.reply('hello back =)')
+            msg.reply('hello back =)');
+            clearChat(msg, 100);
         }
         else if (msg.content.trim().toLowerCase() == _CMD_LIMPIEZA) {
             console.log('entra en comando limpieza'); 
