@@ -267,7 +267,6 @@ discordClient.on('message', async (msg) => {
                 val.debug = true;
         }
         else if (msg.content.trim().toLowerCase() == _CMD_TEST) {
-            msg.reply('hello back =)');
             clearChat(msg, 100);
         }
         else if (msg.content.trim().toLowerCase() == _CMD_LIMPIEZA) {
@@ -606,6 +605,9 @@ async function music_message(message, mapKey) {
             }, (msg)=>{
                 if (msg && msg.length) message.channel.send(msg);
             })
+        } else if (args[0] == _CMD_LIMPIEZA) {
+            clearChat(msg, 100);
+            
         } else if (args[0] == _CMD_EURO) {
            
             try {
@@ -632,12 +634,16 @@ async function music_message(message, mapKey) {
                 }
         } else if (args[0] == _CMD_CHALECO) {
                addToFirstPlace('https://www.youtube.com/watch?v=2dEzYkSiqzY', mapKey);
-               await delay(1000);
-               skipMusic(mapKey, ()=>{
-                    message.react(EMOJI_GREEN_CIRCLE)
-                }, (msg)=>{
-                    if (msg && msg.length) message.channel.send(msg);
-                })
+               await delay(2000);
+               try {
+                   skipMusic(mapKey, ()=>{
+                        message.react(EMOJI_GREEN_CIRCLE)
+                    }, (msg)=>{
+                        if (msg && msg.length) message.channel.send(msg);
+                    })
+               } catch(e) {
+                    console.log('error skipping after chaleco')
+               }
             
         } else if (args[0] == _CMD_GITANEO) {
            
